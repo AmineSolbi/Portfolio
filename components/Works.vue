@@ -42,7 +42,7 @@
                 :class="{ 'animate-translateX': ishowed }">
                 <p class="text-3xl text-center font-bold">{{ selectedWorkTitel }}</p>
 
-                <div class="text-justify grid grid-rows-1 gap-2 font-pangramMed text-lg ph:mt-5">
+                <div class="text-justify grid grid-rows-1 gap-2 font-pangramMed text-lg ph:mt-5 mt-5">
                     <img :src="selectedWorkDetails.imageLog" />
                     <p>{{ selectedWorkDetails.aboutLog }}</p>
                     <img :src="selectedWorkDetails.image" />
@@ -68,22 +68,48 @@
 
 <script setup>
 import { Icon } from '@iconify/vue';
-const ishowed = ref(false)
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const ishowed = ref(false);
+const lastScrollPosition = ref(0);
 
 const closeshow = () => {
-    ishowed.value = false
-}
+    ishowed.value = false;
+};
+
 const selectedWorkDetails = ref({});
-const selectedWorkTitel = ref({})
+const selectedWorkTitel = ref({});
+
 const showDetails = (work) => {
     selectedWorkDetails.value = work.details;
     selectedWorkTitel.value = work.titel;
-    ishowed.value = true
+    ishowed.value = true;
 };
 
 const capitalizeFirstLetter = (str) => {
     return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 };
+
+onMounted(() => {
+    window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll);
+});
+
+const handleScroll = () => {
+    const currentScrollPosition = window.scrollY;
+
+    if (currentScrollPosition > lastScrollPosition.value) {
+        ishowed.value = false;
+    } else {
+        ishowed.value = true;
+    }
+
+    lastScrollPosition.value = currentScrollPosition;
+};
+
 const works = [
     {
         id: 1,
@@ -221,6 +247,25 @@ const works = [
 .fade-slide-leave-to {
     opacity: 0;
     transform: translateY(-100%);
+}
+
+body {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    overflow-y: auto;
+}
+
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+body:hover::-webkit-scrollbar-thumb {
+    background: #0e1259eb;
+    border-radius: 5px;
 }
 </style>
 

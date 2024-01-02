@@ -58,7 +58,7 @@
         <Works />
       </div>
     </div>
-    <div class="h-screen ph:mt-[90%] ph:h-[300%]" data-aos="fade-right" id="Experiance">
+    <div class="h-screen ph:mt-[120%] ph:h-[300%]" data-aos="fade-right" id="Experiance">
       <p class="text-[50px] font-pangramBold text-center text-white pt-[5%]">Experiance</p>
       <div class="grid grid-cols-3 gap-3 ml-[10%] mt-5">
         <Experiance />
