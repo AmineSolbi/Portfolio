@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+        font-family: PangramRegular;
+        src: url("/fonts/Pangram-Regular.ttf");
+}
+@font-face {
+        font-family: PangramBold;
+        src: url("/fonts/Pangram-Bold.ttf");
+}
+@font-face {
+        font-family: PangramLight;
+        src: url("/fonts/Pangram-ExtraLight.ttf");
+}
+@font-face {
+        font-family: PangramMed;
+        src: url("/fonts/Pangram-Medium.ttf");
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    background: #51d4e9db;
+    border-radius: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #0e1259eb;
+    border-radius: 5px;
+}
