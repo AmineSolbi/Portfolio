@@ -1,17 +1,16 @@
 <template>
-    <div class="animate-translateX w-full mt-[10%] ml-[150%]">
+    <div class="animate-translateX w-full ml-[53%]">
         <img :src="Me"
-            class="absolute w-[589px] h-[441px] mt-[3%] -ml-[35%] ph:w-[360px] ph:h-[300px] ph:-ml-[46%] ph:-mt-[10%]" />
+            class="absolute w-[589px] h-[441px] mt-[3%] -ml-[35%] ph:w-[360px] ph:h-[290px] ph:-ml-[47%] ph:-mt-1" />
 
         <hr
-            class=" rotate-0 border-[#52D3D8] border-4 absolute h-[58%] rounded-lg -ml-[3%] ph:rotate-90 ph:h-[45%] ph:mt-[25%]" />
+            class=" rotate-0 border-[#52D3D8] border-4 absolute h-[58%] rounded-lg -ml-[3%] ph:rotate-90 ph:h-[45%] ph:mt-[30%] ph:border-[#396e70]" />
 
         <div
-            class="grid grid-cols-1 gap-4 ml-5 mt-1 ph:-ml-[150%] ph:mt-[280%] ph:text-white ph:grid ph:grid-cols-2 ph:w-[290%]">
+            class="grid grid-cols-1 gap-4 ml-5 pt-[3%] ph:-ml-[47%] ph:text-white ph:grid ph:grid-cols-2 ph:w-[400px] ph:pt-[80%]">
             <div v-for="experiance in object" :key="experiance">
-                <p><span class="font-bold">Name</span> : {{ experiance.name }}</p>
                 <p><span class="font-bold">Company</span> : {{ experiance.socitie }}</p>
-                <p><span class="font-bold">Duration</span> : {{ experiance.duration }} Months</p>
+                <p><span class="font-bold">Descreption</span> : {{ experiance.duration }} Months</p>
                 <p><span class="font-bold">Objective</span> : {{ experiance.objectf }}</p>
                 <p><span class="font-bold">Skills</span> : {{ experiance.skills }}</p>
 

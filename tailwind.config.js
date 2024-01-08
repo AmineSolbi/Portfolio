@@ -15,8 +15,8 @@ module.exports = {
     },
     extend: {
        colors: {
-        'Homeblue': 'rgba(14, 18, 89)',
-        'ToHomeBlue': 'rgba(81, 212, 233)',
+        'Homeblue': 'rgba(14, 18, 89, 0.86)',
+        'ToHomeBlue': 'rgba(81, 212, 233 ,1)',
         'imageGardien':'rgba(0,0,0,.8)',
 
 

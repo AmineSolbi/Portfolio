@@ -1,37 +1,34 @@
 <template>
-    <div class="grid grid-cols-3 gap-3 w-[1530px] ph:grid ph:grid-cols-1 ph:gap-3 ph:-ml-[20px] ph:w-full ">
-        <div v-for="work in works" :key="work.id">
-            <div
-                class="group bg-[#131647] rounded-xl text-center h-[100px] cursor-pointer hover:h-[310px] duration-300 shadow-lg overflow-y-auto ph:overflow-hidden ph:hover:overflow-y-auto">
-
+    <div class="grid grid-cols-3 gap-3 p-5 ph:grid ph:grid-cols-1 ph:gap-3 ph:w-full ">
+        <div v-for="work in works" :key="work.id"
+            class="bg-[#131647] rounded-xl text-center cursor-pointer duration-300 h-[403px] shadow-lg "
+            data-aos="fade-right">
+            <div class="h-[280px]">
                 <p class="text-white font-pangramBold pt-5 text-[25px]">{{ work.titel }}</p>
+                <p class="text-white p-5 mt-10">{{ work.about }}</p>
+            </div>
+            <div class="grid grid-cols-2 gap-2 p-5"
+                :class="{ 'grid grid-cols-2 gap-3': work.langague3, 'grid grid-cols-1': work.langague2 && !work.langauge1 }">
+                <div class="bg-[#2E6B94] flex flex-1 rounded-lg p-1" v-show="work.langague2"
+                    :class="{ 'w-[560px] ph:w-[332px] pl-[80%] ph:pl-[70%]': work.id === 5 }">
+                    <Icon :icon="`mdi:${work.langague2}`" class="text-[30px] ml-2" />
+                    <p class="text-[20px] ml-5">{{ capitalizeFirstLetter(work.langague2) }}</p>
+                </div>
 
-                <div class="text-white font-pangramBold opacity-0 group-hover:opacity-100 transition-opacity ">
-                    <p class="text-white p-5 mt-10">{{ work.about }}</p>
-                    <div class="grid grid-cols-2 gap-2 mt-10 p-5"
-                        :class="{ 'grid grid-cols-2 gap-3': work.langague3, 'grid grid-cols-1': work.langague2 && !work.langauge1 }">
-                        <div class="bg-[#2E6B94] flex flex-1 rounded-lg p-1" v-show="work.langague2"
-                            :class="{ 'w-[450px] ph:w-[320px]': work.id === 5 }">
-                            <Icon :icon="`mdi:${work.langague2}`" class="text-[30px] ml-2" />
-                            <p class="text-[20px] ml-5">{{ capitalizeFirstLetter(work.langague2) }}</p>
-                        </div>
+                <div class="bg-[#2E6B94] flex flex-1 rounded-lg p-1" v-show="work.langague3">
+                    <Icon :icon="`simple-icons:${work.langague3}`" class="text-[30px] ml-2" />
+                    <p class="text-[20px] ml-5">{{ capitalizeFirstLetter(work.langague3) }}</p>
+                </div>
 
-                        <div class="bg-[#2E6B94] flex flex-1 rounded-lg p-1" v-show="work.langague3">
-                            <Icon :icon="`simple-icons:${work.langague3}`" class="text-[30px] ml-2" />
-                            <p class="text-[20px] ml-5">{{ capitalizeFirstLetter(work.langague3) }}</p>
-                        </div>
+                <div class="bg-[#2E6B94] flex flex-1 rounded-lg p-1" v-show="work.langauge1">
+                    <Icon :icon="`akar-icons:${work.langauge1}-fill`" class="text-[30px] ml-2" />
+                    <p class="text-[20px] ml-5">{{ capitalizeFirstLetter(work.langauge1) }}</p>
+                </div>
 
-                        <div class="bg-[#2E6B94] flex flex-1 rounded-lg p-1" v-show="work.langauge1">
-                            <Icon :icon="`akar-icons:${work.langauge1}-fill`" class="text-[30px] ml-2" />
-                            <p class="text-[20px] ml-5">{{ capitalizeFirstLetter(work.langauge1) }}</p>
-                        </div>
-
-                        <div class="bg-[#2E6B94] flex flex-1 rounded-lg p-1 hover:bg-gray-100" v-show="!work.noimage"
-                            :class="{ 'w-[450px] ph:w-[320px]': work.id === 1 }">
-                            <p class="text-[20px] font-medium w-full hover:text-black" @click="showDetails(work)">See
-                                Details</p>
-                        </div>
-                    </div>
+                <div class="bg-[#2E6B94] flex flex-1 rounded-lg p-1 hover:bg-gray-100" v-show="!work.noimage"
+                    :class="{ 'w-[560px] ph:w-[332px]': work.id === 1 }">
+                    <p class="text-[20px] font-medium w-full hover:text-black" @click="showDetails(work)">See
+                        Details</p>
                 </div>
             </div>
         </div>
@@ -40,7 +37,7 @@
             <div v-show="ishowed"
                 class="fixed top-0 left-0 w-full h-full justify-center bg-[#1e5961] p-8 max-w-3xl animate-translateX overflow-y-auto"
                 :class="{ 'animate-translateX': ishowed }">
-                <p class="text-3xl text-center font-bold">{{ selectedWorkTitel }}</p>
+                <p class="text-3xl text-center font-bold pt-[10%]">{{ selectedWorkTitel }}</p>
 
                 <div class="text-justify grid grid-rows-1 gap-2 font-pangramMed text-lg ph:mt-5 mt-5">
                     <img :src="selectedWorkDetails.imageLog" />
@@ -101,14 +98,17 @@ onUnmounted(() => {
 const handleScroll = () => {
     const currentScrollPosition = window.scrollY;
 
-    if (currentScrollPosition > lastScrollPosition.value) {
+    if (currentScrollPosition > lastScrollPosition.value && ishowed.value) {
+        // Scrolling down and details are open, hide the transition
         ishowed.value = false;
-    } else {
-        ishowed.value = true;
+    } else if (currentScrollPosition < lastScrollPosition.value && !ishowed.value) {
+        // Scrolling up and details are not open, show the transition
+        ishowed.value = false;
     }
 
     lastScrollPosition.value = currentScrollPosition;
 };
+
 
 const works = [
     {
@@ -220,6 +220,8 @@ const works = [
             'image': '/image/Boat/Home.png',
             'about': 'dddddd',
         },
+        noimage: true
+
 
     },
     {
